@@ -1,0 +1,18 @@
+app:
+  signingKey: "sd;lvms;dl@!EWFV#@F"
+
+  oauth2:
+    clientId: oauthclient
+    passwd: 123456
+    grantTypes:
+    - password
+    resourceIds: OAuth2_Resources
+    scopes:
+    - authenticate
+
+---
+
+spring:
+  profiles: localhost
+server:
+  port: 8080
