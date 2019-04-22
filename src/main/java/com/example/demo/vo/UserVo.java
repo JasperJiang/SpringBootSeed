@@ -9,6 +9,7 @@ import lombok.*;
 @NoArgsConstructor
 @Builder
 public class UserVo {
+    private Long id;
 
     private String userName;
 }

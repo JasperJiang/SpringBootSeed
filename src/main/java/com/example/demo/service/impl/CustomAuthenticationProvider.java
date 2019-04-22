@@ -1,17 +1,24 @@
 package com.example.demo.service.impl;
 
+import com.example.demo.domain.UserEntity;
 import com.example.demo.exception.AuthenticationException;
+import com.example.demo.repository.UserRepository;
 import com.example.demo.util.ReqUtils;
 import com.example.demo.vo.UserVo;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
+import java.util.Optional;
 
 @Component
 public class CustomAuthenticationProvider implements AuthenticationProvider {
+
+    @Autowired
+    UserRepository userRepository;
 
     @Override
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
@@ -19,9 +26,11 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
         String name = authentication.getName();
         String password = authentication.getCredentials().toString();
 
-        if (name.equalsIgnoreCase("123") && password.equalsIgnoreCase("123")) {
+        Optional<UserEntity> userEntityOptional = userRepository.findByUserNameAndPassword(name, password);
 
-            ReqUtils.setUserAttribute(UserVo.builder().userName("abc").build());
+        if (userEntityOptional.isPresent()) {
+
+            ReqUtils.setUserAttribute(userEntityOptional.get().toUserVo());
 
             return new UsernamePasswordAuthenticationToken(name, password, new ArrayList<>());
         } else {

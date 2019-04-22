@@ -9,7 +9,19 @@ app:
     resourceIds: OAuth2_Resources
     scopes:
     - authenticate
+spring:
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    properties:
+      hibernate.format_sql: true
+      hibernate.show_sql: true
 
+  datasource:
+    url: jdbc:mysql://localhost:3306/SeedDB
+    driver-class-name: com.mysql.jdbc.Driver
+    username: root
+    password: test123
 ---
 
 spring:
