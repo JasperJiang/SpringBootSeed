@@ -13,4 +13,6 @@ CREATE TABLE `user` (
   `user_name` varchar(255) NOT NULL,
   PRIMARY KEY (`user_id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8
-```
+```  
+
+mvn clean package docker:build
